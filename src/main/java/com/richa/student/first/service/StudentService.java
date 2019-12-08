@@ -1,10 +1,9 @@
 package com.richa.student.first.service;
-
 import com.richa.student.first.model.Student;
 import com.richa.student.first.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class StudentService {
     }
 
     public Student updateStudent(int id, Student student) {
-        student.setId(id);
+
         return studentRepository.save(student);
 
     }

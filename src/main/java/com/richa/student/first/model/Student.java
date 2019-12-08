@@ -3,6 +3,8 @@ package com.richa.student.first.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Student {
@@ -11,6 +13,8 @@ public class Student {
     private int id;
     private String fName;
     private String lName;
+
+
 
     public Student() {
     }
@@ -44,4 +48,6 @@ public class Student {
     public void setlName(String lName) {
         this.lName = lName;
     }
+
+
 }
