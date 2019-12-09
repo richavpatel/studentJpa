@@ -1,9 +1,6 @@
 package com.richa.student.first.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,7 +11,8 @@ public class Student {
     private String fName;
     private String lName;
 
-
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    private List<Address> addressList;
 
     public Student() {
     }
@@ -49,5 +47,11 @@ public class Student {
         this.lName = lName;
     }
 
+    public List<Address> getAddressList() {
+        return addressList;
+    }
 
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
+    }
 }

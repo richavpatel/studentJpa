@@ -1,11 +1,12 @@
 package com.richa.student.first.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address {
     @Id
     private int id;
@@ -13,7 +14,10 @@ public class Address {
     private String state;
     private int zip;
 
-
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    @JsonIgnore
+    private Student student;
 
     public Address() {
     }
@@ -58,4 +62,11 @@ public class Address {
     }
 
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 }

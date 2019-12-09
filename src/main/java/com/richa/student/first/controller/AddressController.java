@@ -9,30 +9,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value ="/address")
+//@RequestMapping(value ="/address")
 public class AddressController {
 
     @Autowired
     AddressService addressService;
 
-    @PostMapping
-    public  Address addAddress(@RequestBody Address address){
-        return addressService.addAddress(address);
+    @PostMapping(value = "/students/{student_id}/address")
+    public  Address addAddress(@RequestBody Address address, @PathVariable int student_id){
+        return addressService.addAddress(address, student_id);
     }
-    @GetMapping
-    public List<Address> getAllAddress(){
-        return addressService.getAllAddress();
+    @GetMapping(value = "/students/{student_id}/address")
+    public List<Address> getAllAddress(@PathVariable int student_id){
+        return addressService.getAllAddress(student_id);
     }
-    @GetMapping(value = "/{id}")
-    public Address getAddress(@PathVariable int id){
-        return addressService.getOneAddress(id);
-    }
-    @PutMapping(value = "/{id}")
-    public Address updateAddress(@PathVariable int id, @RequestBody Address address){
+    @PutMapping(value = "/students/{student_id}/address")
+    public Address updateAddress(@PathVariable int id, @RequestBody Address address, @PathVariable String student_id){
         return addressService.updateAddress(id,address);
     }
-    @DeleteMapping(value = "/{id}")
-    public void deleteAddress(@PathVariable int id){
+    @DeleteMapping(value = "/students/{student_id}/address")
+    public void deleteAddress(@PathVariable int id, @PathVariable String student_id){
         addressService.deleteAddress(id);
     }
 
