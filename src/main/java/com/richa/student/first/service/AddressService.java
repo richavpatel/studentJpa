@@ -30,7 +30,7 @@ public class AddressService {
     }
 
     public Address updateAddress(int id, Address address) {
-       // address.setId(id);
+       address.setId(id);
         return addressRepository.save(address);
 
     }
