@@ -31,15 +31,14 @@ public class StudentApplication {
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			TypeReference<List<User>> typeReference= new TypeReference<List<User>>() {};
-			InputStream inputStream = TypeReference.class.getResourceAsStream("json/user.json");
+			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/user.json");
 			try {
 				List<User> users = objectMapper.readValue(inputStream,typeReference);
-				userService.saveUser(users);
+				userService.save(users);
 				System.out.println("Users Saved!");
 			} catch (IOException e){
 				System.out.println("Unable to save users: " + e.getMessage());
 			}
-
 
 		};
 	}

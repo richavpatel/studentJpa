@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Geo {
 
-    private String let;
+    private String lat;
     private String lng;
 
     public Geo() {
