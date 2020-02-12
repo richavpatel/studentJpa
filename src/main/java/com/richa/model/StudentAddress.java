@@ -1,4 +1,4 @@
-package com.richa.student.first.model;
+package com.richa.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Address {
+public class StudentAddress {
     @Id
     private int id;
     private String line1;
@@ -15,14 +15,14 @@ public class Address {
     private int zip;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student")
     @JsonIgnore
     private Student student;
 
-    public Address() {
+    public StudentAddress() {
     }
 
-    public Address(int id, String line1, String state, int zip) {
+    public StudentAddress(int id, String line1, String state, int zip) {
         this.id = id;
         this.line1 = line1;
         this.state = state;

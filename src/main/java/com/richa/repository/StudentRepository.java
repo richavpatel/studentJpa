@@ -1,6 +1,6 @@
-package com.richa.student.first.repository;
+package com.richa.repository;
 
-import com.richa.student.first.model.Student;
+import com.richa.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

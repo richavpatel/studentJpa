@@ -1,7 +1,7 @@
-package com.richa.student.first.controller;
+package com.richa.controller;
 
-import com.richa.student.first.model.Student;
-import com.richa.student.first.service.StudentService;
+import com.richa.model.Student;
+import com.richa.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ public class StudentController {
     StudentService studentService;
 
     @PostMapping
-    public  Student addStudent(@RequestBody Student student){
+    public Student addStudent(@RequestBody Student student){
         return studentService.addStudent(student);
     }
 

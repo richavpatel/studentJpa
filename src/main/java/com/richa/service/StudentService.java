@@ -1,6 +1,6 @@
-package com.richa.student.first.service;
-import com.richa.student.first.model.Student;
-import com.richa.student.first.repository.StudentRepository;
+package com.richa.service;
+import com.richa.model.Student;
+import com.richa.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

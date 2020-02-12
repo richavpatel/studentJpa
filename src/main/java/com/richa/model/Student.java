@@ -1,4 +1,4 @@
-package com.richa.student.first.model;
+package com.richa.model;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,7 +12,7 @@ public class Student {
     private String lName;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
-    private List<Address> addressList;
+    private List<StudentAddress> addressList;
 
     public Student() {
     }
@@ -31,27 +31,27 @@ public class Student {
         this.id = id;
     }
 
-    public String getfName() {
+    public String getFName() {
         return fName;
     }
 
-    public void setfName(String fName) {
+    public void setFName(String fName) {
         this.fName = fName;
     }
 
-    public String getlName() {
+    public String getLName() {
         return lName;
     }
 
-    public void setlName(String lName) {
+    public void setLName(String lName) {
         this.lName = lName;
     }
 
-    public List<Address> getAddressList() {
+    public List<StudentAddress> getAddressList() {
         return addressList;
     }
 
-    public void setAddressList(List<Address> addressList) {
+    public void setAddressList(List<StudentAddress> addressList) {
         this.addressList = addressList;
     }
 }
