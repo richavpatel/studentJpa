@@ -2,25 +2,25 @@ package com.richa.model;
 
 public class CatalogItem {
 
-    private String title;
+    private String name;
     private String desc;
     private int rating;
 
     public CatalogItem() {
     }
 
-    public CatalogItem(String title, String desc, int rating) {
-        this.title = title;
+    public CatalogItem(String name, String desc, int rating) {
+        this.name = name;
         this.desc = desc;
         this.rating = rating;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDesc() {

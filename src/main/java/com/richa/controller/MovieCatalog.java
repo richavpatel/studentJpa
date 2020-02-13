@@ -3,7 +3,6 @@ package com.richa.controller;
 import com.richa.model.CatalogItem;
 import com.richa.model.Movie;
 import com.richa.model.Rating;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,18 +17,19 @@ import java.util.stream.Collectors;
 public class MovieCatalog {
 
 
-    @GetMapping("/{id}")
-    public List<CatalogItem> getCatalog(@PathVariable int id){
+    @RequestMapping("/{userId}")
+    public List<CatalogItem> getCatalog(@PathVariable("userId") int userId){
 
         RestTemplate restTemplate = new RestTemplate();
 
         List<Rating> ratings = Arrays.asList(
-                new Rating(1234, 4),
-                new Rating(5678,3)
+                new Rating(1, 4),
+                new Rating(5678,3),
+                new Rating(568,30)
         );
 
        return ratings.stream().map(rating -> {
-          Movie movie = restTemplate.getForObject("http://localhost:8083/movies"+ rating.getMovieId(),Movie.class);
+          Movie movie = restTemplate.getForObject("http://localhost:8083/movies/" +rating.getMovieId() ,Movie.class);
           return new CatalogItem(movie.getName(),"ss", rating.getRating());
        })
                      .collect(Collectors.toList());

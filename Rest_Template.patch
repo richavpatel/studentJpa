@@ -1,0 +1,242 @@
+Index: src/main/java/com/richa/model/CatalogItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/richa/model/CatalogItem.java	(date 1581605931115)
++++ src/main/java/com/richa/model/CatalogItem.java	(date 1581605931115)
+@@ -0,0 +1,41 @@
++package com.richa.model;
++
++public class CatalogItem {
++
++    private String title;
++    private String desc;
++    private int rating;
++
++    public CatalogItem() {
++    }
++
++    public CatalogItem(String title, String desc, int rating) {
++        this.title = title;
++        this.desc = desc;
++        this.rating = rating;
++    }
++
++    public String getTitle() {
++        return title;
++    }
++
++    public void setTitle(String title) {
++        this.title = title;
++    }
++
++    public String getDesc() {
++        return desc;
++    }
++
++    public void setDesc(String desc) {
++        this.desc = desc;
++    }
++
++    public int getRating() {
++        return rating;
++    }
++
++    public void setRating(int rating) {
++        this.rating = rating;
++    }
++}
+Index: src/main/java/com/richa/controller/MovieCatalog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/richa/controller/MovieCatalog.java	(date 1581611550516)
++++ src/main/java/com/richa/controller/MovieCatalog.java	(date 1581611550516)
+@@ -0,0 +1,37 @@
++package com.richa.controller;
++
++import com.richa.model.CatalogItem;
++import com.richa.model.Movie;
++import com.richa.model.Rating;
++import org.springframework.web.bind.annotation.GetMapping;
++import org.springframework.web.bind.annotation.PathVariable;
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++import org.springframework.web.client.RestTemplate;
++
++import java.util.Arrays;
++import java.util.List;
++import java.util.stream.Collectors;
++
++@RestController
++@RequestMapping("/catalog")
++public class MovieCatalog {
++
++
++    @GetMapping("/{id}")
++    public List<CatalogItem> getCatalog(@PathVariable int id){
++
++        RestTemplate restTemplate = new RestTemplate();
++
++        List<Rating> ratings = Arrays.asList(
++                new Rating(1234, 4),
++                new Rating(5678,3)
++        );
++
++       return ratings.stream().map(rating -> {
++          Movie movie = restTemplate.getForObject("http://localhost:8083/movies"+ rating.getMovieId(),Movie.class);
++          return new CatalogItem(movie.getName(),"ss", rating.getRating());
++       })
++                     .collect(Collectors.toList());
++    }
++}
+Index: src/main/java/com/richa/model/Movie.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/richa/model/Movie.java	(date 1581611313073)
++++ src/main/java/com/richa/model/Movie.java	(date 1581611313073)
+@@ -0,0 +1,33 @@
++package com.richa.model;
++
++
++public class Movie {
++
++
++    private int movieId;
++    private String name;
++
++    public Movie() {
++    }
++
++    public Movie(int movieId, String name) {
++        this.movieId = movieId;
++        this.name = name;
++    }
++
++    public int getMovieId() {
++        return movieId;
++    }
++
++    public void setMovieId(int movieId) {
++        this.movieId = movieId;
++    }
++
++    public String getName() {
++        return name;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++}
+Index: src/main/java/com/richa/model/Rating.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/richa/model/Rating.java	(date 1581608304645)
++++ src/main/java/com/richa/model/Rating.java	(date 1581608304645)
+@@ -0,0 +1,31 @@
++package com.richa.model;
++
++public class Rating {
++
++private int movieId;
++private int rating;
++
++    public Rating() {
++    }
++
++    public Rating(int movieId, int rating) {
++        this.movieId = movieId;
++        this.rating = rating;
++    }
++
++    public int getMovieId() {
++        return movieId;
++    }
++
++    public void setMovieId(int movieId) {
++        this.movieId = movieId;
++    }
++
++    public int getRating() {
++        return rating;
++    }
++
++    public void setRating(int rating) {
++        this.rating = rating;
++    }
++}
+Index: src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/application.properties	(revision 03546903bd2f052df17e22de06583d0ac2fe050b)
++++ src/main/resources/application.properties	(date 1581611253742)
+@@ -1,2 +1,3 @@
+ spring.h2.console.path= /db
+ spring.h2.console.enabled= true
++server.port= 8081
+\ No newline at end of file
+Index: src/main/java/com/richa/controller/UserController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/richa/controller/UserController.java	(revision 03546903bd2f052df17e22de06583d0ac2fe050b)
++++ src/main/java/com/richa/controller/UserController.java	(date 1581605467111)
+@@ -4,6 +4,7 @@
+ import com.richa.service.UserService;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.web.bind.annotation.GetMapping;
++import org.springframework.web.bind.annotation.PathVariable;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RestController;
+ 
+@@ -19,6 +20,8 @@
+ 
+     @GetMapping("/list")
+     public Iterable<User> getAll(){
++
+         return (List<User>) userService.listAll();
+     }
++
+ }
+Index: src/main/java/com/richa/service/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/richa/service/UserService.java	(revision 03546903bd2f052df17e22de06583d0ac2fe050b)
++++ src/main/java/com/richa/service/UserService.java	(date 1581539771075)
+@@ -6,6 +6,7 @@
+ import org.springframework.stereotype.Service;
+ 
+ import java.util.List;
++import java.util.Optional;
+ 
+ @Service
+ public class UserService {
+@@ -17,13 +18,14 @@
+         return userRepository.findAll();
+     }
+ 
+-
++      //one use save
+     public User save(User user) {
+         return userRepository.save(user);
+     }
+-
++      // save all list users
+     public Iterable<User> save(List<User> users) {
+         return userRepository.saveAll(users);
+     }
+ 
++   
+ }
