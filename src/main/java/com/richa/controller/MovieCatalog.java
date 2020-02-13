@@ -3,6 +3,7 @@ package com.richa.controller;
 import com.richa.model.CatalogItem;
 import com.richa.model.Movie;
 import com.richa.model.Rating;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,11 +17,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/catalog")
 public class MovieCatalog {
 
+   @Autowired
+   RestTemplate restTemplate;
 
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") int userId){
-
-        RestTemplate restTemplate = new RestTemplate();
 
         List<Rating> ratings = Arrays.asList(
                 new Rating(1, 4),

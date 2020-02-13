@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,8 +21,10 @@ public class StudentApplication {
 		SpringApplication.run(StudentApplication.class, args);
 	}
 
-
-
+	@Bean
+	public RestTemplate getTemplate(){
+		return new RestTemplate();
+	}
 
 	@Bean
 	CommandLineRunner runner(UserService userService){
