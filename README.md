@@ -1,2 +1,2 @@
 # studentJpa
-Jdbc Template
+Rest Template and GetForEntity Method.
